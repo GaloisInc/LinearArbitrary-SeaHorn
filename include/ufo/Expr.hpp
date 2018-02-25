@@ -179,6 +179,10 @@ namespace expr
     ENode *last ()
     { return args.size () > 0 ? args [args.size () - 1] : NULL; }
     
+    void updateArg (size_t p, ENode* expr) {
+    	args[p] = expr;
+    }
+
 
     typedef std::vector<ENode*>::const_iterator args_iterator;
 

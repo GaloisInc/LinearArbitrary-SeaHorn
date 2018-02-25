@@ -1,0 +1,13 @@
+invariant.
+
+sn:                           continuous.
+i:                           continuous.
+q:                           continuous.
++ sn i:= sn + i.
+- sn i:= sn - i.
++ sn q:= sn + q.
+- sn q:= sn - q.
++ q i:= q + i.
+- q i:= q - i.
+
+invariant: true,false.

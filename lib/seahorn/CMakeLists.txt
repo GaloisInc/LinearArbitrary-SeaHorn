@@ -12,6 +12,7 @@ add_llvm_library (seahorn.LIB
   HornWrite.cc
   HornSolver.cc
   Houdini.cc
+  ICE.cc
   HornModelConverter.cc
   HornDbModel.cc
   PredicateAbstraction.cc

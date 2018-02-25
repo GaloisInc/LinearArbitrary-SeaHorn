@@ -102,6 +102,8 @@ namespace
       bmc.encode ();
       if (m_out) bmc.toSmtLib (*m_out);
       
+      LOG("bmc", bmc.toSmtLib(errs()));
+
       if (!m_solve)
         {
           LOG ("bmc", errs () << "Stopping before solving\n";);

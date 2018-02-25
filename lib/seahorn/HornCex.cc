@@ -209,6 +209,8 @@ namespace seahorn
       else errs () << "Could not open: " << HornCexSmtFilename << "\n";
     }
     
+    LOG("cex", bmc.toSmtLib(errs()));
+
     auto res = bmc.solve ();
     LOG ("cex",
          errs () << "BMC: " 
