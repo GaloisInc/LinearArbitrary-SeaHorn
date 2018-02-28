@@ -112,7 +112,7 @@ We recommend reviewers to follow the following steps to verify reproducibility.
     (Our result: Among the total 25 benchmarks LinearArbitrary successfully verified 25.)
 
 - Reviewers are recommended to access to `test_logs` directory to find the details of our
-experimental result.  
+experimental results generated on our own machine.  
 
 The above arguments to `run.py` refer to directories. All .c files under the given directories
 are verified. The result of whether a verification task is successful is displayed in the
@@ -177,7 +177,7 @@ these options in `run.py` and below.
 ## Our experimental results in log files ##
 
 Reviewers are recommended to access to `test_logs` directory to find the details of our
-experimental result.
+experimental results on our own machine.
 
 ## Example ##
 
