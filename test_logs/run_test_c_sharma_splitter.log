@@ -1,0 +1,549 @@
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/cav.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.bc test/c/sharma_splitter/cav.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-GgrZry/cav.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 1.348073e+00 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: main@entry -- invariant size: 1, 
+REL: (main@_bb V_0 V_1 V_2) -- invariant size: 5, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 32
+Neg sample size: 9
+Pos sample size: 103
+Total sample size: 112
+Iteration number: 117
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@_bb:
+		(!(main@%y.0.i1<=-1))
+	(((1*main@%x.0.i2)+(1*main@%y.0.i1))<=102)
+	(!(((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=-1))
+	(main@%flag.0.i3<=0)
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.00
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 1.16
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 1.17
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/ex1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.bc test/c/sharma_splitter/ex1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-LC7b3b/ex1.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 2.279053e+00 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: main@entry -- invariant size: 1, 
+REL: (main@_bb V_0 V_1 V_2) -- invariant size: 7, 8, 7, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 32
+Neg sample size: 68
+Pos sample size: 100
+Total sample size: 168
+Iteration number: 169
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@_bb: [||
+  [&&
+    true
+    !(main@%flag.0.i3<=-1)
+    main@%flag.0.i3<=0
+    ((1*main@%y.0.i1)+(1*main@%x.0.i2))<=98
+    main@%y.0.i1<=-1
+    !(((1*main@%y.0.i1)+(1*main@%x.0.i2))<=97)
+    !(main@%y.0.i1<=-2)
+  ]
+  [&&
+    true
+    !(main@%flag.0.i3<=-1)
+    main@%flag.0.i3<=0
+    ((1*main@%y.0.i1)+(1*main@%x.0.i2))<=98
+    !(main@%y.0.i1<=-1)
+    ((1*main@%y.0.i1)+(1*main@%x.0.i2))<=97
+    !(((1*main@%y.0.i1)+(-1*main@%x.0.i2))<=-1)
+    ((1*main@%y.0.i1)+(-1*main@%x.0.i2))<=0
+  ]
+  [&&
+    true
+    !(main@%flag.0.i3<=-1)
+    main@%flag.0.i3<=0
+    ((1*main@%y.0.i1)+(1*main@%x.0.i2))<=98
+    !(main@%y.0.i1<=-1)
+    !(((1*main@%y.0.i1)+(1*main@%x.0.i2))<=97)
+    ((1*main@%y.0.i1)+(-1*main@%x.0.i2))<=1
+  ]
+]
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.00
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 1.58
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 1.59
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/ex2.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.bc test/c/sharma_splitter/ex2.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-Ofy6OU/ex2.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 8.722585e+01 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: main@entry -- invariant size: 1, 
+REL: (main@_bb V_0 V_1 V_2) -- invariant size: 10, 11, 10, 6, 8, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 36
+Neg sample size: 239
+Pos sample size: 100
+Total sample size: 339
+Iteration number: 340
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@_bb: [||
+  [&&
+    true
+    ((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=100
+    [+
+      -5*main@%x.0.i2
+      -5*main@%y.0.i1
+      2*main@%z.0.i3
+    ]<=252
+    !(((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=-1)
+    ((1*main@%x.0.i2)+(-1*main@%z.0.i3))<=0
+    ((1*main@%y.0.i1)+(-1*main@%z.0.i3))<=-1
+    !(((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=99)
+    ((1*main@%x.0.i2)+(1*main@%y.0.i1))<=102
+    main@%y.0.i1<=11
+    !(((1*main@%x.0.i2)+(1*main@%y.0.i1))<=101)
+  ]
+  [&&
+    true
+    ((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=100
+    [+
+      -5*main@%x.0.i2
+      -5*main@%y.0.i1
+      2*main@%z.0.i3
+    ]<=252
+    !(((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=-1)
+    ((1*main@%x.0.i2)+(-1*main@%z.0.i3))<=0
+    ((1*main@%y.0.i1)+(-1*main@%z.0.i3))<=-1
+    !(((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=99)
+    ((1*main@%x.0.i2)+(1*main@%y.0.i1))<=102
+    !(main@%y.0.i1<=11)
+    ((1*main@%x.0.i2)+(1*main@%y.0.i1))<=101
+    ((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=0
+  ]
+  [&&
+    true
+    ((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=100
+    [+
+      -5*main@%x.0.i2
+      -5*main@%y.0.i1
+      2*main@%z.0.i3
+    ]<=252
+    !(((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=-1)
+    ((1*main@%x.0.i2)+(-1*main@%z.0.i3))<=0
+    ((1*main@%y.0.i1)+(-1*main@%z.0.i3))<=-1
+    !(((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=99)
+    ((1*main@%x.0.i2)+(1*main@%y.0.i1))<=102
+    !(main@%y.0.i1<=11)
+    !(((1*main@%x.0.i2)+(1*main@%y.0.i1))<=101)
+  ]
+  [&&
+    true
+    ((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=100
+    [+
+      -5*main@%x.0.i2
+      -5*main@%y.0.i1
+      2*main@%z.0.i3
+    ]<=252
+    !(((1*main@%x.0.i2)+(-1*main@%y.0.i1))<=-1)
+    ((1*main@%x.0.i2)+(-1*main@%z.0.i3))<=0
+    !(((1*main@%y.0.i1)+(-1*main@%z.0.i3))<=-1)
+  ]
+  [&&
+    true
+    ((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=100
+    !([+
+        -5*main@%x.0.i2
+        -5*main@%y.0.i1
+        2*main@%z.0.i3
+      ]<=252)
+    !(main@%x.0.i2<=96)
+    !(((5*main@%x.0.i2)+(-1*main@%z.0.i3))<=99)
+    !(((1*main@%x.0.i2)+(1*main@%y.0.i1))<=101)
+    ((1*main@%x.0.i2)+(1*main@%y.0.i1))<=102
+    !(main@%y.0.i1<=2)
+  ]
+]
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.00
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 3.01
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 3.02
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/heapsort1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.bc test/c/sharma_splitter/heapsort1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-zj62fw/heapsort1.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 1.886635e+00 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@.preheader.lr.ph.split.us V_0 V_1 V_2 V_3) -- invariant size: 4, 
+REL: (main@.preheader.us V_0 V_1 V_2 V_3) -- invariant size: 4, 
+REL: (main@_bb1 V_0 V_1 V_2 V_3 V_4) -- invariant size: 5, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 13
+Total Relation size: 6
+Total Var size: 99
+Neg sample size: 49
+Pos sample size: 20
+Total sample size: 69
+Iteration number: 120
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@.preheader.lr.ph.split.us:
+		(!(((1*main@%factor)+(-1*main@%r.1.i.ph1321))<=-1))
+	(((1*main@%l.1.i.ph1423)+(-1*main@%r.1.i.ph1321))<=-1)
+	(!(main@%l.1.i.ph1423<=0))
+main@.preheader.us:
+		(((1*main@%l.1.i19.us)+(-1*main@%r.1.i.ph1321))<=-1)
+	(!(((1*main@%factor)+(-1*main@%r.1.i.ph1321))<=-1))
+	(!(main@%l.1.i19.us<=0))
+main@_bb1:
+		(!(main@%l.1.i19.us<=0))
+	(!(main@%i.0.i.us<=0))
+	(!(((1*main@%factor)+(-1*main@%r.1.i.ph1321))<=-1))
+	(((1*main@%l.1.i19.us)+(-1*main@%r.1.i.ph1321))<=-1)
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.01
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 1.33
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 1.35
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/popl.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.bc test/c/sharma_splitter/popl.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-pf480J/popl.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 6.525396e+00 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: main@entry -- invariant size: 1, 
+REL: (main@_bb V_0 V_1) -- invariant size: 4, 6, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 20
+Neg sample size: 94
+Pos sample size: 100
+Total sample size: 194
+Iteration number: 195
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@_bb: ([&&
+  true
+  !(main@%y.0.i2<=49)
+  main@%y.0.i2<=50
+  ((1*main@%x.0.i1)+(-1*main@%y.0.i2))<=0
+]||[&&
+  true
+  !(main@%y.0.i2<=49)
+  !(main@%y.0.i2<=50)
+  !(((1*main@%x.0.i1)+(-1*main@%y.0.i2))<=-1)
+  ((1*main@%x.0.i1)+(-1*main@%y.0.i2))<=0
+  main@%x.0.i1<=99
+])
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.00
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 1.57
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 1.58
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/spam1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.bc test/c/sharma_splitter/spam1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-NPBvi_/spam1.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 4.186350e+00 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@.loopexit V_0) -- invariant size: 1, 
+REL: (main@entry.split.us.outer V_0 V_1 V_2 V_3 V_4) -- invariant size: 4, 
+REL: (main@entry.split.us V_0 V_1 V_2 V_3 V_4) -- invariant size: 4, 
+REL: (main@.lr.ph.us V_0 V_1 V_2 V_3 V_4 V_5) -- invariant size: 6, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 14
+Total Relation size: 7
+Total Var size: 78
+Neg sample size: 90
+Pos sample size: 28
+Total sample size: 118
+Iteration number: 303
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@entry.split.us.outer:
+		(((1*main@%_4)+(-1*main@%_3))<=-4)
+	(!(main@%i.0.i.us.ph<=-1))
+	(!(main@%_4<=0))
+main@entry.split.us:
+		(!(main@%_4<=0))
+	(!(main@%i.0.i.us.ph<=-1))
+	(((1*main@%_4)+(-1*main@%_3))<=-4)
+main@.lr.ph.us:
+		(!(main@%j.0.i14.us<=-1))
+	(!(main@%i.1.i13.us<=-1))
+	(((1*main@%_4)+(-1*main@%_3))<=-4)
+	(((1*main@%j.0.i14.us)+(-1*main@%_3))<=-5)
+	(!(main@%_4<=0))
+main@.loopexit: true
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.01
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 2.66
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 2.68
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/c/sharma_splitter/svd1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/clang -c -emit-llvm -D__SEAHORN__ -fgnu89-inline -m32 -I./build/run/include -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.bc test/c/sharma_splitter/svd1.c
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.bc --strip-extern=false --kill-vaarg=true -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seapp -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.ms.bc --horn-mixed-sem --ms-reduce-main /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seaopt -f -funit-at-a-time -o /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.ms.o.bc -O3 --enable-indvar=false --enable-loop-idiom=false --enable-nondet-init=false --unroll-threshold=150 --disable-loop-vectorization=true --disable-slp-vectorization=true --vectorize-slp-aggressive=false /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.ms.bc
+/Users/hezhu/Documents/Research/seahorn/build/run/bin/seahorn --keep-shadows=true --horn-solve -horn-inter-proc -horn-sem-lvl=mem --horn-step=large -log none /var/folders/5t/f5ghv51132gbf1sgmwb7n5zw0000gp/T/sea-8l3hz8/svd1.pp.ms.o.bc --horn-answer --horn-stats --horn-ice --horn-ice-svm-c-paramter=10 --horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy --horn-ice-svm-exec-path=../libsvm/svm-invgen --horn-ice-svm-coeff-bound=5 --horn-rule-sample-length=100 --horn-ice-svm-call-freq-pos=0 --horn-ice-svm-call-freq-neg=30
+************** CHCs Solved in 2.507315e+01 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@.lr.ph59 V_0 V_1 V_2 V_3) -- invariant size: 7, 6, 6, 
+REL: (main@.lr.ph.split.split.split..lr.ph.split.split.split.split_crit_edge V_0 V_1 V_2 V_3 V_4 V_5) -- invariant size: 7, 
+REL: (main@.lr.ph51 V_0 V_1 V_2 V_3 V_4 V_5) -- invariant size: 7, 
+REL: (main@_bb3 V_0 V_1 V_2 V_3 V_4 V_5 V_6 V_7) -- invariant size: 10, 10, 
+REL: (main@_bb5 V_0 V_1 V_2 V_3 V_4 V_5 V_6 V_7) -- invariant size: 9, 9, 
+REL: (main@_bb7 V_0 V_1 V_2 V_3 V_4) -- invariant size: 5, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 28
+Total Relation size: 9
+Total Var size: 125
+Neg sample size: 286
+Pos sample size: 339
+Total sample size: 625
+Iteration number: 1488
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@.lr.ph59: [||
+  [&&
+    true
+    !(main@%i.0.i57<=0)
+    !(main@%l.0.i58<=0)
+    !(((1*main@%_1)+(-1*main@%i.0.i57))<=-1)
+    ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1
+    ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2
+    ((1*main@%_1)+(-1*main@%i.0.i57))<=1
+  ]
+  [&&
+    true
+    !(main@%i.0.i57<=0)
+    !(main@%l.0.i58<=0)
+    !(((1*main@%_1)+(-1*main@%i.0.i57))<=-1)
+    ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1
+    !(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2)
+  ]
+  [&&
+    true
+    !(main@%i.0.i57<=0)
+    !(main@%l.0.i58<=0)
+    !(((1*main@%_1)+(-1*main@%i.0.i57))<=-1)
+    !(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1)
+    ((1*main@%_1)+(-1*main@%i.0.i57))<=0
+  ]
+]
+main@.lr.ph.split.split.split..lr.ph.split.split.split.split_crit_edge:
+		(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1)
+	(!(((1*main@%_1)+(-1*main@%j.0.i43))<=-1))
+	(!(main@%i.0.i57<=0))
+	(!(main@%j.0.i43<=1))
+	(!(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2))
+	([+
+  -1*main@%_1
+  -1*main@%i.0.i57
+  3*main@%l.0.i58
+  -1*main@%j.0.i43
+]<=1)
+main@.lr.ph51:
+		(!main@%_22)
+	(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1)
+	(!(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2))
+	(!(main@%i.0.i57<=0))
+	(!(((1*main@%_1)+(-1*main@%i.0.i57))<=0))
+	(((1*main@%l.0.i58)+(-1*main@%j.1.i54))<=0)
+main@_bb3: ([&&
+  true
+  main@%_1<=3
+  !(((1*main@%_1)+(-1*main@%i.0.i57))<=0)
+  !(main@%l.0.i58<=1)
+  !main@%_22
+  !main@%.not21
+  ((1*main@%i.0.i57)+(-1*main@%j.1.i54))<=-1
+  !(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2)
+  ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1
+  ((1*main@%i.0.i57)+(-1*main@%k.0.i50))<=0
+]||[&&
+  true
+  !(main@%_1<=3)
+  ((1*main@%i.0.i57)+(-1*main@%j.1.i54))<=-1
+  !main@%.not21
+  ((1*main@%i.0.i57)+(-1*main@%k.0.i50))<=-1
+  !main@%_22
+  ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1
+  !(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2)
+  !(main@%i.0.i57<=0)
+  !(((1*main@%_1)+(-1*main@%i.0.i57))<=0)
+])
+main@_bb5: ([&&
+  true
+  ((1*main@%_1)+(-1*main@%l.0.i58))<=0
+  !(((1*main@%_1)+(-1*main@%l.0.i58))<=-1)
+  !main@%.not22
+  !main@%_22
+  !(((1*main@%_1)+(-1*main@%i.0.i57))<=0)
+  !(main@%i.0.i57<=0)
+  ((1*main@%_1)+(-1*main@%j.1.i54))<=0
+  ((1*main@%i.0.i57)+(-1*main@%k.1.i52))<=0
+]||[&&
+  true
+  !(((1*main@%_1)+(-1*main@%l.0.i58))<=0)
+  ((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-1
+  !([+
+      1*main@%i.0.i57
+      -2*main@%l.0.i58
+      1*main@%j.1.i54
+    ]<=-2)
+  !(main@%i.0.i57<=0)
+  !main@%.not22
+  !main@%_22
+  !(((1*main@%i.0.i57)+(-1*main@%l.0.i58))<=-2)
+  ((1*main@%i.0.i57)+(-1*main@%k.1.i52))<=0
+])
+main@_bb7:
+		(!(((1*main@%_1)+(-1*main@%i.0.i57))<=0))
+	(!main@%_25)
+	(!(main@%j.2.i55<=1))
+	(!(main@%i.0.i57<=0))
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.02
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.01
+BRUNCH_STAT ICE inv 17.67
+BRUNCH_STAT LargeHornifyFunction 0.01
+BRUNCH_STAT seahorn_total 17.71
+************** BRUNCH STATS END ***************** 

@@ -1,0 +1,190 @@
+************************************************************************************
+Verifying benchmark: test/sv-benchmarks/psyco/psyco_accelerometer_1_true-unreach-call.c
+************** CHCs Solved in 1.511564e+01 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@NewDefault6536.i V_0 V_1 V_2 V_3) -- invariant size: 2, 7, 7, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 8266
+Neg sample size: 22
+Pos sample size: 4
+Total sample size: 26
+Iteration number: 66
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@NewDefault6536.i: [||
+  true&&(main@%q.0.i<=0)
+  [&&
+    true
+    !(main@%q.0.i<=0)
+    ((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%q.0.i))<=-2
+    ((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%q.0.i))<=-3
+    ((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%q.0.i))<=-4
+    !(((1*main@%this_m_conn_data_listener.0.i)+(1*main@%this_m_conn.0.i))<=0)
+    !(main@%this_m_conn_data_listener.0.i<=-1)
+  ]
+  [&&
+    true
+    !(main@%q.0.i<=0)
+    ((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%q.0.i))<=-2
+    !(((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%q.0.i))<=-3)
+    ((1*main@%this_m_conn_data_listener.0.i)+(-1*main@%this_m_conn.0.i))<=0
+    !(main@%this_m_conn_data_listener.0.i<=-1)
+    ((2*main@%this_m_conn.0.i)+(-1*main@%q.0.i))<=-1
+  ]
+]
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.79
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.05
+BRUNCH_STAT HornifyModule 1.57
+BRUNCH_STAT ICE inv 14.66
+BRUNCH_STAT LargeHornifyFunction 1.46
+BRUNCH_STAT seahorn_total 17.12
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/sv-benchmarks/psyco/psyco_io_1_true-unreach-call.c
+************** CHCs Solved in 6.783510e-01 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@NewDefault.i V_0 V_1 V_2) -- invariant size: 3, 6, 3, 4, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 231
+Neg sample size: 5
+Pos sample size: 5
+Total sample size: 10
+Iteration number: 26
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@NewDefault.i: [||
+  [&&
+    true
+    main@%q.0.i<=2
+    main@%q.0.i<=0
+  ]
+  [&&
+    true
+    main@%q.0.i<=2
+    !(main@%q.0.i<=0)
+    !(main@%q.0.i<=1)
+    !(main@%this_sink.0.i<=-1)
+    main@%this_sink.0.i<=0
+  ]
+  [&&
+    true
+    !(main@%q.0.i<=2)
+    main@%this_sink.0.i<=-1
+  ]
+  [&&
+    true
+    !(main@%q.0.i<=2)
+    !(main@%this_sink.0.i<=-1)
+    !(main@%this_sink.0.i<=0)
+  ]
+]
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.01
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.01
+BRUNCH_STAT ICE inv 0.46
+BRUNCH_STAT LargeHornifyFunction 0.00
+BRUNCH_STAT seahorn_total 0.49
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/sv-benchmarks/psyco/psyco_math_1_true-unreach-call.c
+************** CHCs Solved in 1.500000e-05 (secs) **************
+
+************** Program is correct **************
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 0
+Total Relation size: 0
+Total Var size: 0
+Neg sample size: 0
+Pos sample size: 0
+Total sample size: 0
+Iteration number: 0
+************** Learning Statistics End **************
+
+unsat
+Function: main
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.00
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.00
+BRUNCH_STAT ICE inv 0.00
+BRUNCH_STAT seahorn_total 0.00
+************** BRUNCH STATS END ***************** 
+************************************************************************************
+Verifying benchmark: test/sv-benchmarks/psyco/psyco_security_true-unreach-call.c
+************** CHCs Solved in 6.669310e-01 (secs) **************
+
+************** Program is correct **************
+REL: (verifier.error V_0 V_1 V_2) -- invariant size: 1, 2, 
+REL: (main@entry V_0) -- invariant size: 1, 
+REL: (main@NodeBlock14.i V_0 V_1 V_2) -- invariant size: 2, 4, 
+REL: main@verifier.error.split -- invariant size: 1, 
+************** Program Correctness End **************
+
+************** Learning Statistics **************:
+Total CHC size: 8
+Total Relation size: 4
+Total Var size: 225
+Neg sample size: 12
+Pos sample size: 4
+Total sample size: 16
+Iteration number: 29
+************** Learning Statistics End **************
+
+unsat
+Function: main
+main@entry: true
+main@NodeBlock14.i: ((true&&(main@%q.0.i<=0))||[&&
+  true
+  !(main@%q.0.i<=0)
+  !(((1*main@%q.0.i)+(-1*main@%this_state.0.i))<=0)
+  !(((-3*main@%q.0.i)+(2*main@%this_state.0.i))<=-7)
+])
+main@verifier.error.split: false
+
+
+************** BRUNCH STATS ***************** 
+BRUNCH_STAT Result TRUE
+BRUNCH_STAT Horn 0.01
+BRUNCH_STAT HornClauseDB::loadZFixedPoint 0.00
+BRUNCH_STAT HornifyModule 0.01
+BRUNCH_STAT ICE inv 0.49
+BRUNCH_STAT LargeHornifyFunction 0.01
+BRUNCH_STAT seahorn_total 0.51
+************** BRUNCH STATS END ***************** 

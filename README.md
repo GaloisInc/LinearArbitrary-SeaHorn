@@ -41,10 +41,10 @@ The interaction is currently handled by IO. This is a severe performance burden 
 improved in the future.
 
 LinearArbitrary-SeaHorn assumes that the learning libraries, libsvm and ICE-C5, are in 
-parallel to the seahorn directory. Installation steps are:
+parallel to the `seahorn` directory. Installation steps are:
 
 * `cd libsvm; make clean; make`
-* `cd ICE-C5/C50/; make` 
+* `cd ICE-C5/C50/; make clean; make` 
 
 # Usage #
 
@@ -71,30 +71,45 @@ the steps to reproduce the experimental result of the paper.
 
 We recommend reviewers to follow the following steps to verify reproducibility. 
 
-- `pie benchmarks (Fig 8(a))`
+- `PIE benchmarks (Fig 8(a))`
 
   python run.py test/c/pie
 
-- `dig benchmarks (Fig 8(b))`
+    (Our result: Among the total 117 benchmarks LinearArbitrary successfully verified 117.)
+
+- `DIG benchmarks (Fig 8(b))`
 
   python run.py test/c/pie/hola
 
-- `recursive benchmarks (Fig 8(c))`
+    (Our result: Among the total 46 benchmarks LinearArbitrary successfully verified 46.)
+
+- `Recursive benchmarks (Fig 8(c))`
 
   python run.py test/c/recursive
 
-- `c benchmarks (Fig 8(d))`
+    (Our result: Among the total 101 benchmarks LinearArbitrary successfully verified 91.)
+
+- `C Recursive+Loop benchmarks (Fig 8(d))`
 
   python run.py test/c/
 
-- `sv benchmarks (Fig 9)` 
+    (Our result: Among the total 357 benchmarks LinearArbitrary successfully verified 345.)
+
+- `SVComp benchmarks (Fig 9)` 
 
   python run.py test/sv-benchmarks/
 
-- `other interesting benchmarks`
+    (Our result: Among the total 795 benchmarks LinearArbitrary successfully verified 765.)
+
+- `Other interesting benchmarks`
 
   python run.py test/demo
+
+    (Our result: Among the total 26 benchmarks LinearArbitrary successfully verified 26.)
+
   python run.py test/dagger
+
+    (Our result: Among the total 25 benchmarks LinearArbitrary successfully verified 25.)
 
 The above arguments to `run.py` refer to directories. All .c files under the given directories
 are verified. The result of whether a verification task is successful is displayed in the
