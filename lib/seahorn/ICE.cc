@@ -81,9 +81,6 @@ ICEOct("horn-ice-oct", cl::Hidden, cl::init(1));
 static llvm::cl::opt<unsigned>
 ICEICE("horn-ice-ice", cl::Hidden, cl::init(0));
 
-static llvm::cl::opt<unsigned>
-ICEPred("horn-ice-pred", cl::Hidden, cl::init(0));
-
 namespace seahorn
 {
   #define SAT_OR_INDETERMIN true
@@ -195,16 +192,6 @@ namespace seahorn
 		  m_svmattr_name_to_expr_map.clear ();
 		  m_svmattr_name_to_str_map.clear ();
 	  }
-
-//	  for (Expr target : targets) {
-//		  LOG("ice", errs() << "Hyperlane Learning for " << *target << "\n";);
-//
-//		  auto rels_it = db.getRelations().begin();
-//		  while (bind::fname(*rels_it) != target) {
-//			  rels_it++;
-//			  assert (rels_it != targets.end());
-//		  }
-//		  Expr rel = *rels_it;
 
 	  for (Expr rel : db.getRelations()) {
 		  if (targetName != NULL && ICECatch == 0) {
@@ -352,57 +339,8 @@ namespace seahorn
 		  pclose(fp);
 		  fclose(wp);
 
-		  //std::ifstream  fsrc(m_C5filename + ".svm.data", std::ios::binary);
-		  //std::ofstream  fdst(m_C5filename + std::to_string(n_svm_calls) + ".svm.data", std::ios::binary);
-		  //fdst << fsrc.rdbuf();
-
 		  n_svm_calls ++;
 
-		  //parse the output of SVM
-/*        std::ifstream if_svm(m_C5filename + ".inv");
-		  std::ostringstream svm_buf;
-
-		  char ch;
-		  while(svm_buf && if_svm.get(ch))
-		  { svm_buf.put(ch); }
-
-		  std::string svm_string =  svm_buf.str();
-
-		  Expr candidate;
-		  ExprVector currVec;
-		  std::vector<Expr> sol;
-
-		  Expr zero = mkTerm<mpz_class>(0, rel->efac());
-		  std::vector<std::string> lines = split_string (svm_string, "\n");
-		  for (auto itr = lines.begin(); itr != lines.end(); itr++) {
-			  std::string line = *itr;
-			  if (line.compare("true") == 0) {
-				  currVec.push_back(mk<TRUE> (rel->efac ()));
-				  break;
-			  } else if (line.compare("false") == 0) {
-				  currVec.push_back(mk<FALSE> (rel->efac ()));
-				  break;
-		  	  } else if (line.compare("DISJUNCT") == 0) {
-		  		  if (currVec.size() == 1)
-		  			  sol.push_back (currVec.front());
-		  		  else sol.push_back(mknary<AND> (currVec));
-				  currVec.clear ();
-			  } else {
-				  ExprVector addargs;
-				  std::vector<std::string> thetas = split_string (line, " ");
-				  addargs.push_back (mkTerm<mpz_class>(atoi(thetas[0].c_str()), rel->efac()));
-				  for (int i = 1; i < thetas.size(); i++) {
-					  int coeff = atoi(thetas[i].c_str());
-					  if (coeff == 0)
-						  continue;
-
-					  Expr c = mkTerm<mpz_class>(atoi(thetas[i].c_str()), rel->efac());
-					  addargs.push_back (mk<MULT> (c, arg_list.at(i-1)));
-				  }
-				  currVec.push_back (mk<GEQ>(mknary<PLUS> (addargs), zero));
-			  }
-		  }
-*/
 		  std::ifstream if_svm(m_C5filename + ".attr");
 		  std::ostringstream svm_buf;
 
@@ -464,92 +402,7 @@ namespace seahorn
 			  }
 			  ind++;
 		  }
-/*
- 	 	  // And then make a call to C5 to obtain
-		  LOG("ice", errs() << "CALL C5 TO GENERATEs INVARIANT of SVM CLASSIFIER\n";);
-		  // Decision tree learning composing classifier
-		  if (dt_learning) {
-			  wp = fopen("C5_temp","w+");
-			  command = C5ExecPath + " -I 1 -m 1 -f " + m_C5filename;
-			  if((fp = popen(command.c_str(), access.c_str())) == NULL)
-			  {
-				  perror("popen failed!\n");
-				  return;
-			  }
-
-			  status = fread(buf, sizeof(char), sizeof(buf), fp);
-			  if(status == 0)
-			  {
-				  LOG("ice", errs() << "read from popen failed!\n";);
-				  return;
-			  }
-			  fwrite(buf, 1, sizeof(buf), wp);
-
-			  pclose(fp);
-			  fclose(wp);
-
-			  //parse the .json file to ptree
-			  std::ifstream if_json(m_C5filename + ".json");
-			  std::ostringstream json_buf;
-
-			  while(json_buf && if_json.get(ch))
-			  { json_buf.put(ch); }
-
-			  std::string json_string = json_buf.str();
-
-			  boost::property_tree::ptree pt;
-			  std::stringstream ss(json_string);
-			  try
-			  { boost::property_tree::json_parser::read_json(ss, pt); }
-			  catch(boost::property_tree::ptree_error & e)
-			  { LOG("ice", errs() << "READ JSON ERROR!\n";); return; }
-
-			  // Fixme. Bad code on calling decision tree learning. totally 3 places.
-			  ExprVector tv;
-			  tv.push_back (bind::fname(*(db.getRelations().begin())));
-			  tv.push_back (target);
-			  //parse ptree to invariant format
-			  convertPtreeToInvCandidate(pt, tv);
-		  }
-*/
-
-/*		  if (currVec.size() == 1)
-			  sol.push_back (currVec.front());
-		  else
-			  sol.push_back(mknary<AND>(currVec));
-
-		  if (sol.size () == 1) {
-			  candidate = sol.front();
-		  } else {
-			  candidate = mknary<OR> (sol);
-		  }
-
-		  Expr fapp = bind::fapp(rel, arg_list);
-		  m_candidate_model.addDef(fapp, candidate);
-
-		  LOG("ice", errs() << "Invariant Learning for " << *target << " succeeded.\n";);     */
 	  }
-
-	  //Fixme: enforce to prove all queries are unsat.
-/*	  invalidateQueries(db);
-
-	  extractFacts(db, targets);
-
-	  LOG("ice", errs() << "NEW CANDIDATES MAP:\n";);
-	  for(Expr rel : db.getRelations())
-	  {
-		  ExprVector arg_list;
-		  for(int i=0; i<bind::domainSz(rel); i++)
-		  {
-			  Expr arg_i_type = bind::domainTy(rel, i);
-			  Expr arg_i = bind::fapp(bind::constDecl(variant::variant(i, mkTerm<std::string> ("V", rel->efac ())), arg_i_type));
-			  arg_list.push_back(arg_i);
-		  }
-		  Expr fapp = bind::fapp(rel, arg_list);
-		  Expr cand = m_candidate_model.getDef(fapp);
-		  LOG("ice", errs() << *fapp << " : " << *cand << "\n";);
-	  }
-*/
   }
 
 
@@ -686,85 +539,13 @@ namespace seahorn
 				  }
 			  }
 			  }
-			  if (ICEPred) { // Add a number of fixed relaional predicates ... Fixme: Should be parameterized ...
-			  int ind = 0;
-			  for (int v = -2; v <= 2; v++)
-			  for(int i=0; i<bind::domainSz(rel); i++)
-			  {
-				  if(isOpX<INT_TY>(bind::domainTy(rel, i)))
-				  {
-					  Expr arg_type = bind::domainTy(rel, i);
-					  Expr arg_i = bind::fapp(bind::constDecl(variant::variant(i, mkTerm<std::string> ("V", rel->efac ())), arg_type));
-					  Expr attr_name_i = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_i)));
-
-					  // String representation
-					  std::ostringstream ross;
-					  ross << attr_name_i << " <= " << v;
-
-					  Expr arg_ind_type = sort::intTy(rel->efac());
-					  Expr arg_ind = bind::fapp(bind::constDecl(variant::variant(ind, mkTerm<std::string> ("ICEPred", rel->efac ())), arg_ind_type));
-					  Expr attr_name_ind = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_ind)));
-					  Expr val = mkTerm<mpz_class>(v, rel->efac());
-					  m_pred_name_to_expr_map.insert(std::make_pair(attr_name_ind, mk<LEQ>(arg_i, val)));
-					  ind++;
-
-					  names_of << *attr_name_ind << ":= " << ross.str() << ".\n";
-					  upperInterval ++;
-
-					  ross.str(""); ross.clear();
-					  ross << v << " <= " << attr_name_i;
-
-					  arg_ind = bind::fapp(bind::constDecl(variant::variant(ind, mkTerm<std::string> ("ICEPred", rel->efac ())), arg_ind_type));
-					  attr_name_ind = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_ind)));
-					  m_pred_name_to_expr_map.insert(std::make_pair(attr_name_ind, mk<LEQ>(val, arg_i)));
-					  ind++;
-
-					  names_of << *attr_name_ind << ":= " << ross.str() << ".\n";
-					  upperInterval ++;
-				  }
-			  }
-			  for(int i=0; i<bind::domainSz(rel); i++)
-			  {
-				  if (unknowns[rel][i]) // Exclude unknowns from invariant inference.
-					  continue;
-				  for(int j=0; j<bind::domainSz(rel); j++)
-				  {
-					  if (j == i)
-						  continue;
-					  if (unknowns[rel][j]) // Exclude unknowns from invariant inference.
-						  continue;
-					  if(isOpX<INT_TY>(bind::domainTy(rel, i)) && isOpX<INT_TY>(bind::domainTy(rel, j)))
-					  {
-						  Expr arg_type = bind::domainTy(rel, i);
-						  Expr arg_i = bind::fapp(bind::constDecl(variant::variant(i, mkTerm<std::string> ("V", rel->efac ())), arg_type));
-						  Expr arg_j = bind::fapp(bind::constDecl(variant::variant(j, mkTerm<std::string> ("V", rel->efac ())), arg_type));
-						  Expr attr_name_i = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_i)));
-						  Expr attr_name_j = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_j)));
-
-						  // String representation
-						  std::ostringstream ross;
-						  ross << attr_name_i << " - " << attr_name_j << " <= 0";
-
-						  Expr arg_ind_type = sort::intTy(rel->efac());
-						  Expr arg_ind = bind::fapp(bind::constDecl(variant::variant(ind, mkTerm<std::string> ("ICEPred", rel->efac ())), arg_ind_type));
-						  Expr attr_name_ind = variant::tag(C5_rel_name, bind::fname(bind::fname(arg_ind)));
-						  Expr zero = mkTerm<mpz_class>(0, rel->efac());
-						  m_pred_name_to_expr_map.insert(std::make_pair(attr_name_ind, mk<LEQ>(mk<MINUS>(arg_i, arg_j), zero)));
-						  ind++;
-
-						  names_of << *attr_name_ind << ":= " << ross.str() << ".\n";
-						  upperInterval ++;
-					  }
-				  }
-			  }
-			  }
-			  // attributes found by SVM -- which must be related to C5_rel_name
+			  // atrributes found by SVM -- which must be realted to C5_rel_name
 			  std::ostringstream ossR; ossR << C5_rel_name;
 			  for(std::map<Expr, std::string>::iterator it = m_svmattr_name_to_str_map.begin(); it!= m_svmattr_name_to_str_map.end(); ++it)
 			  {
 				  std::ostringstream ossA; ossA << *(it->first);
 				  if (ossA.str().find(ossR.str()) != std::string::npos) {
-					  // This is indeed related to C5_rel_name
+					  // This is ineed realted to C5_rel_name
 					  names_of << *(it->first) << ":= " << (it->second) << ".\n";
 					  upperInterval ++;
 				  }
@@ -902,15 +683,6 @@ namespace seahorn
 			  }
   		  }
   	  }
-
-//  	  for (DataPoint dp : m_potential_pos_data_set) {
-//  		  data_of << outputDataPoint(dp);
-//  		  data_of << ",true\n";
-//  	  }
-//  	  for (DataPoint dp : m_potential_neg_data_set) {
-//		  data_of << outputDataPoint(dp);
-//		  data_of << ",false\n";
-//	  }
 
   	  data_of.close();
 
@@ -1141,28 +913,6 @@ namespace seahorn
 				  return final_formula;
 			  }
 		  }
-		  else if (attr_name.find("ICEPred") != -1)
-		  {
-			  Expr attr_expr;
-			  for(ExprMap::iterator it = m_pred_name_to_expr_map.begin(); it!= m_pred_name_to_expr_map.end(); ++it)
-			  {
-				  std::ostringstream oss;
-				  oss << *(it->first);
-				  if(oss.str() == attr_name)
-				  {
-					  attr_expr = it->second;
-				  }
-			  }
-
-			  if (isOpX<LEQ>(attr_expr)) {
-				  decision_expr = attr_expr; //mk<NEG>(attr_expr);
-				  int cut = sub_pt.get<int>("cut");
-				  assert(cut == 0);
-			  } else {
-				  LOG("ice", errs() << "DECISION NODE TYPE WRONG!\n";);
-				  return final_formula;
-			  }
-		  }
 		  else
 		  {
 			  Expr attr_expr;
@@ -1237,7 +987,8 @@ namespace seahorn
 	  }
 	  int cut = sub_pt.get<int>("cut");
 	  Expr threshold = mkTerm<mpz_class>(cut, left_expr->efac());
-	  Expr decision_expr = mk<LEQ>(mk<PLUS>(left_expr, right_expr), threshold);
+	  Expr c = mkTerm<mpz_class>(1, left_expr->efac());
+	  Expr decision_expr = mk<LEQ>(mk<PLUS>(mk<MULT>(c, left_expr), mk<MULT>(c, right_expr)), threshold);
 
 	  return decision_expr;
   }
@@ -1271,7 +1022,9 @@ namespace seahorn
 	  }
 	  int cut = sub_pt.get<int>("cut");
 	  Expr threshold = mkTerm<mpz_class>(cut, left_expr->efac());
-	  Expr decision_expr = mk<LEQ>(mk<MINUS>(left_expr, right_expr), threshold);
+	  Expr c1 = mkTerm<mpz_class>(1, left_expr->efac());
+	  Expr c2 = mkTerm<mpz_class>(-1, left_expr->efac());
+	  Expr decision_expr = mk<LEQ>(mk<PLUS>(mk<MULT>(c1, left_expr), mk<MULT>(c2, right_expr)), threshold);
 
 	  return decision_expr;
   }
@@ -1384,20 +1137,6 @@ namespace seahorn
 		  HornRule r = *it;
 		  ExprVector body_pred_apps;
 
-//		  ExprVector cache;
-//		  cache.push_back(r.body());
-//		  while (cache.size () > 0) {
-//			  Expr curr = cache.front();
-//			  cache.erase (cache.begin());
-//
-//			  if (isOpX<REM>(curr)) {
-//				  body_pred_apps.push_back(curr);
-//			  }
-//			  else
-//				  for (Expr arg : mk_it_range (curr->args_begin(), curr->args_end ())) {
-//					  cache.push_back (arg);
-//				  }
-//		  }
 		  filter (r.body(), IsREM(), std::back_inserter(body_pred_apps));
 
 		  for (Expr p : body_pred_apps) {
@@ -1409,12 +1148,6 @@ namespace seahorn
 				  int cons = atoi(oss.str().c_str());
 				  if (cons > 0) ruleConstants.insert(cons);
 				  else if (cons < 0) ruleConstants.insert(-1*cons);
-					  //auto it = ruleConstants.find (r);
-					  //if (it != ruleConstants.end()) {
-						  //it->second.insert(atoi(oss.str().c_str()));
-					  //} else {
-						  //ruleConstants.insert(std::make_pair(r, ...));
-					  //}
 			  }
 		  }
 	  }
@@ -1916,7 +1649,7 @@ namespace seahorn
 				  solver.assertExpr(body_forumla);
 				  boost::tribool result = solver.solve();
 				  if(result != UNSAT) {
-					  errs()<<"Program is buggy.\n";
+					  outs()<<"Program is buggy.\n";
 					  std::list<Expr> attr_values;
 					  DataPoint pos_dp(bind::fname(bind::fname(r.head())), attr_values);
 					  addPosCex(pos_dp);
@@ -2129,7 +1862,7 @@ namespace seahorn
 						  //if (searched != m_pos_data_set.end()) {
 						  if (foundPos) {
 							  if (bind::domainSz(bind::fname(r_head)) <= 0) {
-								  errs()<<"Program is buggy.\n";
+								  outs()<<"Program is buggy.\n";
 			  	  	  	  	  	  std::list<Expr> attr_values;
 								  DataPoint pos_dp(bind::fname(bind::fname(r.head())), attr_values);
 								  addPosCex(pos_dp);
@@ -2489,7 +2222,7 @@ namespace seahorn
 					  //if (searched != m_pos_data_set.end()) {
 					  if (foundPos) {
 						  if (bind::domainSz(bind::fname(r_head)) <= 0) {
-							  errs()<<"Program is buggy.\n";
+							  outs()<<"Program is buggy.\n";
 							  std::list<Expr> attr_values;
 							  DataPoint pos_dp(bind::fname(bind::fname(r.head())), attr_values);
 							  addPosCex(pos_dp);
@@ -2930,7 +2663,7 @@ namespace seahorn
 		  if(bind::domainSz(bind::fname(r.head())) == 0)
 		  {
 			  //Fixme. reach a predicate with empty signature.
-			  errs()<<"Program is buggy.\n";
+			  outs()<<"Program is buggy.\n";
 			  std::list<Expr> attr_values;
 			  DataPoint pos_dp(bind::fname(bind::fname(r.head())), attr_values);
 			  addPosCex(pos_dp);
@@ -3091,22 +2824,22 @@ namespace seahorn
       if (isOpX<OR> (body_formula)) {
     	  for (Expr arg : mk_it_range (body_formula->args_begin(), body_formula->args_end ())) {
     		  if (isOpX<AND> (arg)) {
-				  std::cout << arg->arity() << ", ";
+				  outs() << arg->arity() << ", ";
 			  } else {
-				  std::cout << "1, ";
+				  outs() << "1, ";
 			  }
     	  }
       } else {
     	  if (isOpX<AND> (body_formula)) {
-			  std::cout << body_formula->arity() << ", ";
+			  outs() << body_formula->arity() << ", ";
 		  } else {
-			  std::cout << "1, ";
+			  outs() << "1, ";
 		  }
       }
-      std::cout << "\n";
+      outs() << "\n";
   }
 
-  //ice.runICE();
+  // ICE: Induction CounterExample guided invariant inference.
   void ICE::runICE()
   {
 	  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -3135,11 +2868,11 @@ namespace seahorn
   	  }
 
   	  std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
-  	  std::cout << "************** CHCs Solved in " <<
+  	  outs() << "************** CHCs Solved in " <<
   			  (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) /1000000.0 << " (secs) **************\n\n";
 
   	  if (no_verification_found_error) {
-  		  std::cout << "************** Program is correct **************\n";
+  		  outs() << "************** Program is correct **************\n";
 		  LOG("ice", errs() << "FINAL INVARIANTS MAP:\n";);
 		  for(Expr rel : db.getRelations())
 		  {
@@ -3153,26 +2886,26 @@ namespace seahorn
 			  Expr fapp = bind::fapp(rel, arg_list);
 			  Expr cand = m_candidate_model.getDef(fapp);
 			  LOG("ice", errs() << "REL: " << *fapp << ", CAND: " << *cand << "\n";);
-			  std::cout << "REL: " << *fapp << " -- invariant size: ";
+			  outs() << "REL: " << *fapp << " -- invariant size: ";
 			  countInvSize (cand);
 		  }
-		  std::cout << "************** Program Correctness End **************\n\n";
+		  outs() << "************** Program Correctness End **************\n\n";
   	  } else {
-  		  std::cout << "************** Program is buggy **************\n";
-  		  std::cout << "Buggy Trace:\n";
+  		  outs() << "************** Program is buggy **************\n";
+  		  outs() << "Buggy Trace:\n";
   		  drawPosTree ();
-  		  std::cout << "************** Buggy Trace End **************\n\n";
+  		  outs() << "************** Buggy Trace End **************\n\n";
   	  }
 
-  	  std::cout <<"************** Learning Statistics **************:\n";
-  	  std::cout <<"Total CHC size: " << db.getRules().size() << "\n";
-  	  std::cout <<"Total Relation size: " << db.getRelations().size() << "\n";
-  	  std::cout <<"Total Var size: " << db.getVars().size() << "\n";
-  	  std::cout <<"Neg sample size: " << m_neg_data_set.size() << "\n";
-  	  std::cout <<"Pos sample size: " << m_pos_data_set.size() << "\n";
-  	  std::cout <<"Total sample size: " << m_neg_data_set.size() + m_pos_data_set.size() << "\n";
-  	  std::cout <<"Iteration number: " << index << "\n";
-  	  std::cout <<"************** Learning Statistics End **************\n\n";
+  	  outs() <<"************** Learning Statistics **************:\n";
+  	  outs() <<"Total CHC size: " << db.getRules().size() << "\n";
+  	  outs() <<"Total Relation size: " << db.getRelations().size() << "\n";
+  	  outs() <<"Total Var size: " << db.getVars().size() << "\n";
+  	  outs() <<"Neg sample size: " << m_neg_data_set.size() << "\n";
+  	  outs() <<"Pos sample size: " << m_pos_data_set.size() << "\n";
+  	  outs() <<"Total sample size: " << m_neg_data_set.size() + m_pos_data_set.size() << "\n";
+  	  outs() <<"Iteration number: " << index << "\n";
+  	  outs() <<"************** Learning Statistics End **************\n\n";
 
   	  // Dump the invariants into file, for validation with Houdini
   	  if (!ICEInvDump.empty ())

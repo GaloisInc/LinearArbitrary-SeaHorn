@@ -5,6 +5,57 @@ from threading import Timer
 #path   = os.path.dirname(sys.argv[0])
 solve  = "./build/run/bin/sea" #% (path)
 solveSVComp = "./svcomp.command"
+total = 0
+success = 0
+
+# ============================= Available options =============================
+#`--horn-answer`
+#  show learned invariants in the output
+
+#`--horn-stats`
+#  show some stats about learning and verification
+
+#`--horn-ice`
+#  use inductive counterexample guided learning to solve a verification task
+
+#`--horn-ice-svm-c-paramter={int}`
+#  adjust the C parameter of SVM learning (see sec 3.1 and sec 3.2 of the paper)
+
+#`--horn-ice-c5-exec-path={str}`
+#  specify where to find to find the decision tree learning library
+
+#`--horn-ice-svm-exec-path={str}`
+#  specify where to find to find libsvm
+
+#`--horn-ice-mod={1,0}`
+#  allow learning to use mod operation of a numeric varaible against a constant as a feature.
+#  (see line 857-871 of the paper)
+
+#`--horn-ice-svm-coeff-bound={int}` 
+#  Z3 sometimes times-out on a formula with very large coefficients. Setting this parameter can
+#  avoid considering such candidate invariants.
+
+#`--horn-rule-sample-length={int}`
+#  When the verifier finds a positive sample, using this paramter allows the system to use 
+#  bounded DFS on CHCs to genemerate more related positive samples to accerlate verification.
+
+#`--horn-rule-sample-width={int}`
+#  When the verifier finds a positive sample, using this paramter allows the system to use 
+#  bounded BFS on CHCs to genemerate more related positive samples to accerlate verification. 
+
+#`--horn-ice-svm-call-freq-pos={int}`
+#`--horn-ice-svm-call-freq-neg={int}`
+#  This is an optimization implemented in the tool. The learning algorithm is based on the
+#  interaction between svm and decision tree (DT) learning. Since svm provides attributes 
+#  to construct DT, if svm is called upon the incoming of a counterexample, the DT construction 
+#  may diverge since attributes change too fast. If this parameter is set to `n`, svm is 
+#  called every other `n` samples. The idea is like target/current networks used in DQN learning. 
+
+#`--horn-ice-local-strengthening={1,0}`
+#  This is an optimization implemented in the tool. It can greatly improve the tool's
+#  performance on some benchmarks. For a CHC, p1(x) /\ ... -> p2(x) where p1 = p2, this
+#  optimization only updates the solution of p1 during CEGAR iterations and p2 is only
+#  updated to the solution of p1 when the new p1 solution can imply the old p2 solution.
 
 def setupExperiments (path, flags):
   arguments = flags[:]
@@ -59,7 +110,10 @@ def set_dillig_TACAS13_Experiments(path, arguments):
 def set_ICE_Experiments(path, arguments):
   arguments.extend(["--horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy", "--horn-ice-svm-exec-path=../libsvm/svm-invgen"])
   arguments.extend(["--horn-ice-svm-coeff-bound=5", "--horn-rule-sample-length=1"])
-  arguments.extend(["--horn-ice-svm-call-freq-pos=0", "--horn-ice-svm-call-freq-neg=10"])
+  arguments.extend(["--horn-ice-svm-call-freq-pos=0", "--horn-ice-svm-call-freq-neg=30"])
+  # Make verification converge fast by using local-strengthening. See the above comment.
+  if (path.find("ex23") != -1):
+    arguments.extend(["--horn-ice-local-strengthening=1"])
   return arguments
 
 def set_invgen_Experiments(path, arguments):
@@ -85,10 +139,13 @@ def set_recursvie_Experiments(path, arguments):
   arguments.extend(["--horn-ice-svm-call-freq-pos=0", "--horn-ice-svm-call-freq-neg=10"])
   if (path.find("Add") != -1 or path.find("sum") != -1):
     arguments.extend(["--horn-ice-svm-exec-path=../libsvm/svm-invgen"])
+  # Benchmarks need invariants involving mod (%) operation 
   if (path.find("EvenOdd") != -1):
     arguments.extend(["--horn-ice-mod=1"])
   if ((path.find("fibo") != -1 or path.find("Fibo") != -1) and path.find("false") == -1):
     arguments.extend(["--horn-ice-local-strengthening=1"])
+  # For programs with multiple loops, it is a good idea to unroll CHCs a small nubmer of steps to accerlate
+  # sampling positive data. For instance, the mergesort aglorithm.  
   if (path.find("100") != -1):
     arguments.extend(["--horn-rule-sample-length=100"])
   elif (path.find("200") != -1):
@@ -99,6 +156,8 @@ def set_recursvie_Experiments(path, arguments):
 
 def set_sharma_splitter_Experiments(path, arguments):
   arguments.extend(["--horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy", "--horn-ice-svm-exec-path=../libsvm/svm-invgen"])
+  # For programs with multiple loops, it is a good idea to unroll CHCs a small nubmer of steps to accerlate
+  # sampling positive data. For instance, the mergesort aglorithm.
   arguments.extend(["--horn-ice-svm-coeff-bound=5", "--horn-rule-sample-length=100"])
   arguments.extend(["--horn-ice-svm-call-freq-pos=0", "--horn-ice-svm-call-freq-neg=30"])
   return arguments 
@@ -107,7 +166,7 @@ def set_SVComp_Experiments(path, arguments):
   arguments.extend(["--horn-ice-c5-exec-path=../ICE-C5/C50/c5.0.dt_entropy", "--horn-ice-svm-exec-path=../libsvm/svm-invgen"])
   arguments.extend(["--horn-ice-svm-coeff-bound=5", "--horn-rule-sample-length=10"])
   arguments.extend(["--horn-ice-svm-call-freq-pos=0", "--horn-ice-svm-call-freq-neg=20"])
-  if (path.find("email_") != -1): arguments.extend(["-horn-rule-sample-width=2"])
+  if (path.find("email_") != -1): arguments.extend(["-horn-rule-sample-width=3"])
   return arguments
 
 def set_default_Experiments(arguments):
@@ -123,13 +182,15 @@ def set_default_Experiments(arguments):
 def logged_sys_call(args, quiet):
   print "exec: " + " ".join(args)
   if quiet:
-    out = open("result.log", "w")
+    out = open("result.log", "a")
   else:
     out = None
   kill = lambda process: process.kill()  
   seahorn = subprocess.Popen(args, stdout=out, stderr=None)
   timer = Timer(150, kill, [seahorn])
 
+  global total
+  total = total + 1
   try:
     timer.start()
     seahorn.communicate()    
@@ -144,6 +205,10 @@ def logged_sys_call(args, quiet):
         result = child.communicate()[0]
         if result == "":
           break
+    else:
+      global success
+      success = success + 1
+      print("Success!")
   #return subprocess.call(args, stdout=out, stderr=None, timeout=5)
 
 
@@ -160,19 +225,45 @@ def run(quiet, flags):
   if "-help" in flags or "--help" in flags:
     os.system("%s -help" % (solve))
     return 0
+  # Clear previous result file.
+  open('result.log', 'w').close()
+  # Clear previous implication files in case the user called Garg's ICE approach in the last run.
+  open('FromCmd.implications', 'w').close()
   src   = flags[len(flags) - 1]
   flags = flags[:-1]
-  for (root, dirs, files) in os.walk (src):
-    for file in files:
-      filename = os.path.join(root, file)
-      if (not filename.endswith(".c")):
-        continue
-      print ("************************************************************************************")
-      print ("Verifying benchmark: %s" % filename)
-      solve_horn(filename, quiet, setupExperiments(filename, flags))
-      print ("************************************************************************************\n")
+  if (src.endswith(".c")):
+    header = open ('result.log', 'a')
+    print ("************************************************************************************")
+    print ("Verifying benchmark: %s" % src)
+    header.write ("************************************************************************************\n")
+    header.write ("Verifying benchmark: %s\n" % src)
+    header.close()
+    solve_horn(src, quiet, setupExperiments(src, flags))
+    print ("************************************************************************************\n")
+  else:
+    for (root, dirs, files) in os.walk (src):
+      for file in files:
+        filename = os.path.join(root, file)
+        if (not filename.endswith(".c")):
+          continue
+        header = open ('result.log', 'a')
+        print ("************************************************************************************")
+        print ("Verifying benchmark: %s" % filename)
+        header.write ("************************************************************************************\n")
+        header.write ("Verifying benchmark: %s\n" % filename)
+        header.close()
+        solve_horn(filename, quiet, setupExperiments(filename, flags))
+        print ("************************************************************************************\n")
+  print "Among the total %d benchmarks LinearArbitrary successfully verified %d.\n" % (total, success)
+  print "Check result.log for analysis result.\n"
   return 0
 
 if __name__ == "__main__":
-  print "LinearArbitrary: Copyright (c) 2018 Galois, Inc"
-  sys.exit(run(False, sys.argv[1:]))
+  print "LinearArbitrary: Copyright (Anonymised but with all rights reserved)"
+  if (len(sys.argv) <= 1):
+    print ("Usage: %s [flags] [sourcefile]" % sys.argv[0])
+    sys.exit(0)
+  if sys.argv[1] == "screen":
+    sys.exit(run(False, sys.argv[2:]))
+  else:
+    sys.exit(run(True, sys.argv[1:]))

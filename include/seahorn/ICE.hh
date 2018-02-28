@@ -184,67 +184,67 @@ namespace seahorn
 					  // Draw the reach-to relation.
 					  Expr pred_name = pre.getPredName();
 					  //Expr C5_pred_name = m_rel_to_c5_rel_name_map.find(pred_name)->second;
-					  std::cout << pred_name << "(";
+					  outs() << *pred_name << "(";
 
 					  int i = 0;
 					  for(Expr attr :  pre.getAttrValues())
 					  {
 						  if (i < pre.getAttrValues().size() - 1)
-							  std::cout << *attr << ",";
+							  outs() << *attr << ",";
 						  else
-							  std::cout << *attr;
+							  outs() << *attr;
 						  i++;
 					  }
-					  std::cout << ")  -->  ";
+					  outs() << ")  -->  ";
 
 					  pred_name = p.getPredName();
 					  //C5_pred_name = m_rel_to_c5_rel_name_map.find(pred_name)->second;
-					  std::cout << pred_name << "(";
+					  outs() << *pred_name << "(";
 
 					  i = 0;
 					  for(Expr attr : p.getAttrValues())
 					  {
 						  if (i < p.getAttrValues().size() - 1)
-							  std::cout << *attr << ",";
+							  outs() << *attr << ",";
 						  else
-							  std::cout << *attr;
+							  outs() << *attr;
 						  i++;
 					  }
-					  std::cout << ")\n";
+					  outs() << ")\n";
 				  }
     		  } else {
-    			  std::cout << "Fact  -->  ";
+    			  outs() << "Fact  -->  ";
 				  Expr pred_name = p.getPredName();
 				  //Expr C5_pred_name = m_rel_to_c5_rel_name_map.find(pred_name)->second;
-				  std::cout << pred_name << "(";
+				  outs() << *pred_name << "(";
 
 				  int i = 0;
 				  for(Expr attr : p.getAttrValues())
 				  {
 					  if (i < p.getAttrValues().size() - 1)
-						  std::cout << *attr << ",";
+						  outs() << *attr << ",";
 					  else
-						  std::cout << *attr;
+						  outs() << *attr;
 					  i++;
 				  }
-				  std::cout << ")\n";
+				  outs() << ")\n";
     		  }
     	  else {
-    		  std::cout << "Entry  -->  ";
+    		  outs() << "Entry  -->  ";
     		  Expr pred_name = p.getPredName();
     		  //Expr C5_pred_name = m_rel_to_c5_rel_name_map.find(pred_name)->second;
-			  std::cout << pred_name << "(";
+			  outs() << *pred_name << "(";
 
 			  int i = 0;
 			  for(Expr attr : p.getAttrValues())
 			  {
 				  if (i < p.getAttrValues().size() - 1)
-					  std::cout << *attr << ",";
+					  outs() << *attr << ",";
 				  else
-					  std::cout << *attr;
+					  outs() << *attr;
 				  i++;
 			  }
-			  std::cout << ")\n";
+			  outs() << ")\n";
     	  }
       }
       void drawPosTree () {
