@@ -15,7 +15,8 @@ int main() {
 
   n = unknown1();
 
-  if (n > 0 && n < 10) {
+  __VERIFIER_assume (n > 0 && n < 10);
+
   k = 0;
   i = 0;
   while( i < n ) {
@@ -31,7 +32,6 @@ int main() {
   }
   
   sassert(k>n);
-  }
   return 0;
 }
 
