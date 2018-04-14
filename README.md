@@ -17,6 +17,15 @@
 
 <a href="">LinearArbitrary-SeaHorn</a> is distributed under [license.txt](license.txt).
 
+# LinearArbitrary-SeaHorn Dependencies #
+
+* LLVM 3.6 (the build script can automatically install it)
+* Z3 4.4.0 (the build script can automatically install it)
+* Boost 1.63 (brew installation available on Mac os x)
+* libncurses (brew installation available on Mac os x)
+* libgmp (brew installation available on Mac os x)
+
+
 # LinearArbitrary-SeaHorn Installation #
 
 * `cd seahorn ; mkdir build ; cd build`
