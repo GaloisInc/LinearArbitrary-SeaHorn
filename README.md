@@ -24,8 +24,8 @@
 * `cmake --build .` to build dependencies (Z3 and LLVM)
 * `cmake --build . --target extra` to download extra packages
 * `cd ../llvm-seahorn/ && git reset --hard 39aa187 && cd ../llvm-dsa/ && git reset --hard fedb3e3 && cd ../sea-dsa/ && git reset --hard 246f0f5 && cd ../crab-llvm/ && git reset --hard e2fac87 && cd ../build/ && make ..` to configure extra packages
-* `cmake --build . --target crab && cmake ..` to configure crab-llvm (if `extra` target was run)
-* `cmake --build . --target install` to build seahorn and install everything in `run` directory
+* `cmake --build . --target crab && cmake ..` to configure crab-llvm
+* `cmake --build . --target install` to build LinearArbitrary-SeaHorn and install everything in `run` directory
 
 LinearArbitrary-SeaHorn and dependencies are installed in `build/run`
 
@@ -63,8 +63,6 @@ seahorn verification tool on `file.c`. The `sea` verification engine accepts
 several options to configure verification. Tracking how to use these options
 is interesting but `run.py` comes with a default configuration and also automates
 the steps to reproduce the experimental result of the paper.
-
-We recommend reviewers to follow the following steps to verify reproducibility. 
 
 - `PIE benchmarks (Fig 8(a))`
 
@@ -106,18 +104,18 @@ We recommend reviewers to follow the following steps to verify reproducibility.
 
     (Our result: Among the total 25 benchmarks LinearArbitrary successfully verified 25.)
 
-- Reviewers are recommended to access to `test_logs` directory to find the details of our
-experimental results generated on our own machine.  
+- Users are recommended to access to `test_logs` directory to find the details of our
+own experimental results.  
 
 The above arguments to `run.py` refer to directories. All .c files under the given directories
 are verified. The result of whether a verification task is successful is displayed in the
 command-lines window. Additionally, invariants learned to prove a program or a counterexample 
 generated to disprove a program, for each verification task, are available in the log file 
-`./result.log`. Reviewers can access to this file to get more insight of LinearArbitrary-SeaHorn.
+`./result.log`. Users can access to this file to get more insight of LinearArbitrary-SeaHorn.
 Alternatively one can use `python run.py screen test/demo` to get the tool's output directly
 displayed in the command-lines window.
 
-In case reviewers are interested in knowing what options are passed to LinearArbitrary-SeaHorn
+In case users are interested in knowing what options are passed to LinearArbitrary-SeaHorn
 for verification in `run.py`, `result.log` is a good place for such information. We explain 
 these options in `run.py` and below.
 
@@ -169,10 +167,6 @@ these options in `run.py` and below.
   optimization only updates the solution of p1 during CEGAR iterations and p2 is only
   updated to the solution of p1 when the new p1 solution can imply the old p2 solution.
 
-## Our experimental results in log files ##
-
-Reviewers are recommended to access to `test_logs` directory to find the details of our
-experimental results on our own machine.
 
 ## Example ##
 
