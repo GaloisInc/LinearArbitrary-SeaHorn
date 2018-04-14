@@ -37,6 +37,7 @@
 * `cmake --build . --target install` to build LinearArbitrary-SeaHorn and install everything in `run` directory
 
 LinearArbitrary-SeaHorn and dependencies are installed in `build/run`
+LinearArbitrary-SeaHorn doesn't come with its own version of Clang and expects to find it either in the build directory (run/bin) or in PATH. Make sure that the version of Clang matches the version of LLVM that comes with LinearArbitrary-SeaHorn (currently 3.6). The easiest way to provide the right version of Clang is to download it from [llvm.org](http://releases.llvm.org/download.html).
 
 # Learning Libraries Installation #
 
@@ -70,34 +71,33 @@ is Z3 + libsvm + C5.0_decision_tree.
 `run.py` is essentially a wrapper to `seahorn/build/run/bin/sea` which calls the
 seahorn verification tool on `file.c`. The `sea` verification engine accepts
 several options to configure verification. Tracking how to use these options
-is interesting but `run.py` comes with a default configuration and also automates
-the steps to reproduce the experimental result of the paper.
+is interesting but `run.py` comes with a default configuration.
 
-- `PIE benchmarks (Fig 8(a))`
+- `PIE benchmarks`
 
   python run.py test/c/pie
 
     (Our result: Among the total 117 benchmarks LinearArbitrary successfully verified 117.)
 
-- `DIG benchmarks (Fig 8(b))`
+- `DIG benchmarks`
 
   python run.py test/c/pie/hola
 
     (Our result: Among the total 46 benchmarks LinearArbitrary successfully verified 46.)
 
-- `Recursive benchmarks (Fig 8(c))`
+- `Recursive benchmarks`
 
   python run.py test/c/recursions
 
     (Our result: Among the total 101 benchmarks LinearArbitrary successfully verified 91.)
 
-- `C Recursive+Loop benchmarks (Fig 8(d))`
+- `C Recursive+Loop benchmarks`
 
   python run.py test/c/
 
     (Our result: Among the total 357 benchmarks LinearArbitrary successfully verified 345.)
 
-- `SVComp benchmarks (Fig 9)` 
+- `SVComp benchmarks` 
 
   python run.py test/sv-benchmarks/
 
@@ -138,7 +138,7 @@ these options in `run.py` and below.
   use inductive counterexample guided learning to solve a verification task
 
 `--horn-ice-svm-c-paramter={int}`
-  adjust the C parameter of SVM learning (see sec 3.1 and sec 3.2 of the paper)
+  adjust the C parameter of SVM learning
 
 `--horn-ice-c5-exec-path={str}`
   specify where to find the decision tree learning library
@@ -148,7 +148,7 @@ these options in `run.py` and below.
 
 `--horn-ice-mod={1,0}`
   allow learning to use mod(%) operation of a numeric variable against a constant as a 
-  feature (see line 857-871 of the paper).
+  feature
 
 `--horn-ice-svm-coeff-bound={int}` 
   Z3 sometimes times-out on a formula with very large coefficients. Setting this parameter can
@@ -168,13 +168,13 @@ these options in `run.py` and below.
   interaction between svm and decision tree (DT) learning. Since svm provides attributes 
   to construct DT, if svm is called everytime a counterexample comes, DT construction 
   may diverge since attributes change too fast. If this parameter is set to `n`, svm is 
-  called every `n` samples. The idea is like using target/current networks used in DQN learning. 
+  called every `n` samples.
 
 `--horn-ice-local-strengthening={1,0}`
-  This is an optimization implemented in the tool. It can greatly improve the tool's
+  This is an optimization implemented in the tool. It can improve the tool's
   performance on some benchmarks. For a CHC, p1(x) /\ ... -> p2(x) where p1 = p2, this
   optimization only updates the solution of p1 during CEGAR iterations and p2 is only
-  updated to the solution of p1 when the new p1 solution can imply the old p2 solution.
+  updated to the solution of p1 once the new p1 solution is strong enough to imply the old p2 solution.
 
 
 ## Example ##
@@ -263,7 +263,7 @@ Among the total 1 benchmarks LinearArbitrary successfully verified 1.
 The first line of the output gives the CHC solving time while the last line of the
 output only estimates the time spent within seahorn not counting learning time.
 If a program is correct, the tool first outputs the size of each invariant learned
-for a CHC unknown (see line 1114 of the paper). It then outputs some information
+for a CHC unknown symbol. It then outputs some information
 about CHC system size and number of positive and negative samples and CEGAR iterations
 used to derive the solution. After that, the tool prints the learned invariants
 as shown above followed with some brunch stats.
@@ -272,7 +272,7 @@ as shown above followed with some brunch stats.
 # Appreciation #
 
 To people who developed the SeaHorn verification framework:
-* [Arie Gurfinkel](arieg.bitbucket.org)
+* [Arie Gurfinkel](https://arieg.bitbucket.io)
 * [Jorge Navas](http://jorgenavas.github.io/)
 * [Temesghen Kahsai](http://www.lememta.info/)
 

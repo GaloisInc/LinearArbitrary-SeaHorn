@@ -1,1 +1,5 @@
+--- LinearArbitrary-SeaHorn ---
+He Zhu, Stephen Magill, Suresh Jagannathan
+
+--- SeaHorn ---
 Arie Gurfinkel, Jorge Navas, Teme Kahsai, 
