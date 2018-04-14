@@ -1,15 +1,11 @@
 
-<p align=center><a href="https://seahorn.github.io"><img src="https://seahorn.github.io/images/seahorn-logo.png" alt="seahorn" width="200px" height="200px"/></a></p>
-
 <table>
   <tr>
-    <th>Windows</th><th>Ubuntu</th><th>OS X</th><th>Chat with us</th><th>Stories</th>
+    <th>Windows</th><th>Ubuntu</th><th>OS X</th>
   </tr>
     <td>TBD</td>
-    <td><a href="https://travis-ci.org/seahorn/seahorn"><img src="https://travis-ci.org/seahorn/seahorn.svg?branch=master" title="Ubuntu 12.04 LTS 64bit, g++-5"/></a></td>
-    <td>TBD</td>
-    <td><a href="https://gitter.im/seahorn/seahorn?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/seahorn/seahorn.svg" title="Gitter"/></a></td>
-    <td> <a href="http://waffle.io/seahorn/seahorn/"><img src="https://badge.waffle.io/seahorn/seahorn.svg?label=ready&title=Ready"/></a></td>
+    <td>Build</td>
+    <td>Build</td>
   </tr>
 </table>
 
@@ -19,9 +15,7 @@
 
 # License #
 
-<a href="">LinearArbitrary-SeaHorn</a> is distributed under a modified BSD license. See [license.txt](license.txt) for details.
-
-The installation steps can be skipped if on VM.
+<a href="">LinearArbitrary-SeaHorn</a> is distributed under [license.txt](license.txt).
 
 # LinearArbitrary-SeaHorn Installation #
 
@@ -204,7 +198,8 @@ This is an example of a C program annotated with a safety property:
     }
 
 ```
-
+LinearArbitrary-SeaHorn assumes all variables are initialized. Nondeterministic variables
+can be initialized with an unknown function.
 LinearArbitrary-SeaHorn follows [SV-COMP](http://sv-comp.sosy-lab.org) convention of
 encoding error locations by a call to the designated error function
 `__VERIFIER_error()`. `sassert()` method is defined in `seahorn/seahorn.h`.
@@ -271,17 +266,12 @@ used to derive the solution. After that, the tool prints the learned invariants
 as shown above followed with some brunch stats.
 
 
-# Source code information #
-
-The most interesting code is in lib/seahorn/ICE.cc. The function `runICE()` in line
-2843 of the file defines our CEGAR based learning for CHC solving and is the entry
-of our main code.
-
 # Appreciation #
 
 To people who developed the SeaHorn verification framework:
 * [Arie Gurfinkel](arieg.bitbucket.org)
 * [Jorge Navas](http://jorgenavas.github.io/)
 * [Temesghen Kahsai](http://www.lememta.info/)
+
 To people who developed an initial implementation of the ICE algorithm inside SeaHorn:
 * [Chenguang Zhu](http://cozy.ece.utexas.edu/~cgzhu/)
