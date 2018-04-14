@@ -36,7 +36,7 @@
 * `cmake --build . --target crab && cmake ..` to configure crab-llvm
 * `cmake --build . --target install` to build LinearArbitrary-SeaHorn and install everything in `run` directory
 
-LinearArbitrary-SeaHorn and dependencies are installed in `build/run`
+LinearArbitrary-SeaHorn and dependencies are installed in `build/run`.
 LinearArbitrary-SeaHorn doesn't come with its own version of Clang and expects to find it either in the build directory (run/bin) or in PATH. Make sure that the version of Clang matches the version of LLVM that comes with LinearArbitrary-SeaHorn (currently 3.6). The easiest way to provide the right version of Clang is to download it from [llvm.org](http://releases.llvm.org/download.html).
 
 # Learning Libraries Installation #
@@ -72,6 +72,15 @@ is Z3 + libsvm + C5.0_decision_tree.
 seahorn verification tool on `file.c`. The `sea` verification engine accepts
 several options to configure verification. Tracking how to use these options
 is interesting but `run.py` comes with a default configuration.
+
+
+# Timeout #
+
+`run.py` comes with a default timeout parameter (150s) defined in the main function
+of the python file. Users can change it by modifying the parameter value in the source.
+
+
+# Benchmarks #
 
 - `PIE benchmarks`
 

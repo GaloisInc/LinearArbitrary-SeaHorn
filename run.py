@@ -49,13 +49,13 @@ success = 0
 #  interaction between svm and decision tree (DT) learning. Since svm provides attributes 
 #  to construct DT, if svm is called upon the incoming of a counterexample, the DT construction 
 #  may diverge since attributes change too fast. If this parameter is set to `n`, svm is 
-#  called every other `n` samples. The idea is like target/current networks used in DQN learning. 
+#  called every other `n` samples.
 
 #`--horn-ice-local-strengthening={1,0}`
-#  This is an optimization implemented in the tool. It can greatly improve the tool's
-#  performance on some benchmarks. For a CHC, p1(x) /\ ... -> p2(x) where p1 = p2, this
-#  optimization only updates the solution of p1 during CEGAR iterations and p2 is only
-#  updated to the solution of p1 when the new p1 solution can imply the old p2 solution.
+#  This is an optimization implemented in the tool. It can improve the tool's performance
+#  on some benchmarks. For a CHC, p1(x) /\ ... -> p2(x) where p1 = p2, this optimization
+#  only updates the solution of p1 during CEGAR iterations and p2 is only updated to the
+#  solution of p1 once the new p1 solution is strong enough to imply the old p2 solution.
 
 def setupExperiments (path, flags):
   arguments = flags[:]
@@ -179,7 +179,7 @@ def set_default_Experiments(arguments):
 #  arguments.extend (["--horn-answer", "--horn-stats"])
 #  return arguments
 
-def logged_sys_call(args, quiet):
+def logged_sys_call(args, quiet, timeout):
   print "exec: " + " ".join(args)
   if quiet:
     out = open("result.log", "a")
@@ -187,7 +187,7 @@ def logged_sys_call(args, quiet):
     out = None
   kill = lambda process: process.kill()  
   seahorn = subprocess.Popen(args, stdout=out, stderr=None)
-  timer = Timer(150, kill, [seahorn])
+  timer = Timer(timeout, kill, [seahorn])
 
   global total
   total = total + 1
@@ -212,13 +212,13 @@ def logged_sys_call(args, quiet):
   #return subprocess.call(args, stdout=out, stderr=None, timeout=5)
 
 
-def solve_horn(file,quiet,flags):
+def solve_horn(file,quiet,flags,timeout):
   if (file.find ("sv-benchmarks") == -1):
-    return logged_sys_call([solve, "pf"] + flags + [("%s" % file)], quiet)
+    return logged_sys_call([solve, "pf"] + flags + [("%s" % file)], quiet, timeout)
   else:
-    return logged_sys_call([solveSVComp] + [" ".join(flags)] + [("%s" % file)], quiet)
+    return logged_sys_call([solveSVComp] + [" ".join(flags)] + [("%s" % file)], quiet, timeout)
 
-def run(quiet, flags):
+def run(quiet, flags, timeout):
   if len(flags) == 0:
     print ("Usage: %s [flags] [sourcefile]" % sys.argv[0])
     sys.exit(0)
@@ -238,7 +238,7 @@ def run(quiet, flags):
     header.write ("************************************************************************************\n")
     header.write ("Verifying benchmark: %s\n" % src)
     header.close()
-    solve_horn(src, quiet, setupExperiments(src, flags))
+    solve_horn(src, quiet, setupExperiments(src, flags), timeout)
     print ("************************************************************************************\n")
   else:
     for (root, dirs, files) in os.walk (src):
@@ -252,7 +252,7 @@ def run(quiet, flags):
         header.write ("************************************************************************************\n")
         header.write ("Verifying benchmark: %s\n" % filename)
         header.close()
-        solve_horn(filename, quiet, setupExperiments(filename, flags))
+        solve_horn(filename, quiet, setupExperiments(filename, flags), timeout)
         print ("************************************************************************************\n")
   print "Among the total %d benchmarks LinearArbitrary successfully verified %d.\n" % (total, success)
   print "Check result.log for analysis result.\n"
@@ -263,7 +263,10 @@ if __name__ == "__main__":
   if (len(sys.argv) <= 1):
     print ("Usage: %s [flags] [sourcefile]" % sys.argv[0])
     sys.exit(0)
+
+  # Modify the timeout parameter here!
+  timeout = 150
   if sys.argv[1] == "screen":
-    sys.exit(run(False, sys.argv[2:]))
+    sys.exit(run(False, sys.argv[2:], timeout))
   else:
-    sys.exit(run(True, sys.argv[1:]))
+    sys.exit(run(True, sys.argv[1:], timeout))
