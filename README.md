@@ -73,14 +73,8 @@ seahorn verification tool on `file.c`. The `sea` verification engine accepts
 several options to configure verification. Tracking how to use these options
 is interesting but `run.py` comes with a default configuration.
 
-
-# Timeout #
-
 `run.py` comes with a default timeout parameter (150s) defined in the main function
 of the python file. Users can change it by modifying the parameter value in the source.
-
-
-# Benchmarks #
 
 - `PIE benchmarks`
 
