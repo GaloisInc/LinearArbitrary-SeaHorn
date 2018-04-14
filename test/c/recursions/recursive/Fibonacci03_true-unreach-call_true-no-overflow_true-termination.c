@@ -28,7 +28,7 @@ int main() {
         return 0;
     }
     int result = fibonacci(x);
-    if (x < 10 || result >= 55) {
+    if (x < 9 || result >= 34) {
         return 0;
     } else {
         ERROR: __VERIFIER_error();

@@ -259,7 +259,7 @@ def run(quiet, flags):
   return 0
 
 if __name__ == "__main__":
-  print "LinearArbitrary: Copyright (Anonymised but with all rights reserved)"
+  print "LinearArbitrary: Copyright (c) 2017-2018 Galois Inc. All rights reserved."
   if (len(sys.argv) <= 1):
     print ("Usage: %s [flags] [sourcefile]" % sys.argv[0])
     sys.exit(0)

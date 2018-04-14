@@ -4,9 +4,14 @@ int main () {
 	int p = unknown();
 	int i = 0;
 	int j = 0;
-	__VERIFIER_assume(p == 50);
+	int lb, ub, limit;
+	limit = unknown();
+	lb = unknown();
+	ub = unknown();
+	__VERIFIER_assume(0 <= lb && lb < ub && ub < limit);
+	__VERIFIER_assume(lb <= p && p <= ub);
 
-	while (i < 100) {
+	while (i < limit) {
 		if (i == p) {
 			i++;
 			j=1;

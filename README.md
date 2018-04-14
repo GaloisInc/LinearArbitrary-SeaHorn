@@ -28,7 +28,8 @@ The installation steps can be skipped if on VM.
 * `cd seahorn ; mkdir build ; cd build`
 * `cmake -DCMAKE_INSTALL_PREFIX=run ../ `
 * `cmake --build .` to build dependencies (Z3 and LLVM)
-* `cmake --build . --target extra && cmake ..` to download extra packages
+* `cmake --build . --target extra` to download extra packages
+* `cd ../llvm-seahorn/ && git reset --hard 39aa187 && cd ../llvm-dsa/ && git reset --hard fedb3e3 && cd ../sea-dsa/ && git reset --hard 246f0f5 && cd ../crab-llvm/ && git reset --hard e2fac87 && cd ../build/ && make ..` to configure extra packages
 * `cmake --build . --target crab && cmake ..` to configure crab-llvm (if `extra` target was run)
 * `cmake --build . --target install` to build seahorn and install everything in `run` directory
 
@@ -85,7 +86,7 @@ We recommend reviewers to follow the following steps to verify reproducibility.
 
 - `Recursive benchmarks (Fig 8(c))`
 
-  python run.py test/c/recursive
+  python run.py test/c/recursions
 
     (Our result: Among the total 101 benchmarks LinearArbitrary successfully verified 91.)
 
@@ -278,7 +279,9 @@ of our main code.
 
 # Appreciation #
 
-To people who devloped the SeaHorn verification framework:
+To people who developed the SeaHorn verification framework:
 * [Arie Gurfinkel](arieg.bitbucket.org)
 * [Jorge Navas](http://jorgenavas.github.io/)
 * [Temesghen Kahsai](http://www.lememta.info/)
+To people who developed an initial implementation of the ICE algorithm inside SeaHorn:
+* [Chenguang Zhu](http://cozy.ece.utexas.edu/~cgzhu/)
