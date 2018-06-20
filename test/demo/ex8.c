@@ -11,15 +11,34 @@ void main() {
 		if (max1 > max2) max2 = max1;
 		if (max2 > max3) max3 = max2;
 
-		if (i == 1) {
-			if (max1 == id1) cnt++;
-			if (max2 == id2) cnt++;
-			if (max3 == id3) cnt++;
-		}
+		//if (i == 1) {
+		//	if (max1 == id1) cnt++;
+		//	if (max2 == id2) cnt++;
+		//	if (max3 == id3) cnt++;
+		//}
 
-		if (i>=1) 
-			if(cnt!=1)
+		if (max1 != id1 && max2 != id2 && max3 != id3)
 				__VERIFIER_error();
+
+		if (i>=1) {
+			if (max1 == id1) {
+				if (max2 == id2) __VERIFIER_error();
+				if (max3 == id3) __VERIFIER_error();
+			}
+
+			if (max2 == id2) {
+				if (max1 == id1) __VERIFIER_error();
+				if (max3 == id3) __VERIFIER_error();
+			}
+
+			if (max3 == id3) {
+				if (max1 == id1) __VERIFIER_error();
+				if (max2 == id2) __VERIFIER_error();
+			}
+		}
+		//if (i>=1) 
+		//	if(cnt!=1)
+		//		__VERIFIER_error();
 		i++;
 	}
 }
