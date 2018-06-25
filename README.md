@@ -45,11 +45,10 @@ LinearArbitrary-SeaHorn does not explicitly link to the SVM and DT learning libr
 The interaction is currently handled by IO. This is a severe performance burden and will be
 improved in the future.
 
-LinearArbitrary-SeaHorn assumes that the learning libraries, libsvm and ICE-C5, are in 
-parallel to the `seahorn` directory. Installation steps are:
+Installation steps are:
 
 * `cd libsvm; make clean; make`
-* `cd ICE-C5/C50/; make clean; make` 
+* `cd C50; make clean; make` 
 
 # Usage #
 

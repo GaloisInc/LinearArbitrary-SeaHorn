@@ -1,0 +1,69 @@
+.PHONY	Makefile	/^.PHONY: clean$/
+CC ?	Makefile	/^CC ?= gcc$/
+CFLAGS +	Makefile	/^CFLAGS += -O2$/
+CPPFLAGS +	Makefile	/^CPPFLAGS += -O2$/
+CPP_OBJ	Makefile	/^CPP_OBJ = clist.o cmap.o file_tools.o tree_seriali/
+CXX ?	Makefile	/^CXX ?= g++$/
+C_OBJ	Makefile	/^C_OBJ = array.o$/
+__ARRAY_H__	array.h	2
+__CLIST_H__	clist.h	8
+__CMAP_H__	cmap.h	8
+__FILE_TOOLS_H__	file_tools.h	2
+__TREE_SERIALIZER_H__	tree_serializer.h	2
+__select	cmap.cpp	/^array * __select (std::map<int, std::set<int> * > /
+_serialize_to_JSON	tree_serializer.cpp	/^void _serialize_to_JSON (Tree t, std::ostream & ou/
+all	Makefile	/^all: cpp_wrapper.a$/
+array	array.h	12
+array.o	Makefile	/^array.o: array.c array.h$/
+array_invert	array.c	/^struct array * array_invert(struct array const * a/
+array_print	array.c	/^void array_print(struct array * a) {$/
+clean	Makefile	/^clean:$/
+clist	clist.cpp	12
+clist.o	Makefile	/^clist.o: clist.cpp clist.h$/
+clist::list	clist.cpp	13
+clist_back	clist.cpp	/^int clist_back (clist * l) {$/
+clist_empty	clist.cpp	/^int clist_empty (clist * l) {$/
+clist_front	clist.cpp	/^int clist_front (clist * l) {$/
+clist_pop_back	clist.cpp	/^void clist_pop_back(clist * l) {$/
+clist_pop_front	clist.cpp	/^void clist_pop_front(clist * l) {$/
+clist_print	clist.cpp	/^void clist_print(clist * l) {$/
+clist_push_back	clist.cpp	/^void clist_push_back (clist * l, int val) {$/
+clist_push_front	clist.cpp	/^void clist_push_front (clist * l, int val) {$/
+clist_size	clist.cpp	/^size_t clist_size (clist * l) {$/
+clist_to_array	clist.cpp	/^array * clist_to_array (clist const * l) {$/
+cmap	cmap.cpp	14
+cmap.o	Makefile	/^cmap.o: cmap.cpp cmap.h $/
+cmap::left2right_map	cmap.cpp	15
+cmap::right2left_map	cmap.cpp	16
+cmap::std::map	cmap.cpp	15
+cmap::std::map	cmap.cpp	16
+cmap_add	cmap.cpp	/^void cmap_add (cmap * map, int x, int y) {$/
+cmap_copy	cmap.cpp	/^cmap * cmap_copy (cmap const * other) {$/
+cmap_copy_and_rename	cmap.cpp	/^cmap * cmap_copy_and_rename (cmap const * other, a/
+cmap_count_cuts	cmap.cpp	/^int cmap_count_cuts (struct cmap const * m, struct/
+cmap_get	cmap.cpp	/^array * cmap_get(cmap * map, int x) {$/
+cmap_get_keys	cmap.cpp	/^struct array * cmap_get_keys (struct cmap const * /
+cmap_number_of_implications	cmap.cpp	/^int cmap_number_of_implications (cmap const * map)/
+cmap_print	cmap.cpp	/^void cmap_print (cmap * map) {$/
+cmap_propagate	cmap.cpp	/^int cmap_propagate (array * a, cmap * m, int class/
+cmap_remove	cmap.cpp	/^void cmap_remove (cmap * map, int x, int y) {$/
+cmap_rget	cmap.cpp	/^array * cmap_rget(cmap * map, int y) {$/
+cmap_select_lhs	cmap.cpp	/^array * cmap_select_lhs (struct cmap * map, int (*/
+cmap_select_rhs	cmap.cpp	/^array * cmap_select_rhs (struct cmap * map, int (*/
+cmap_swap	cmap.cpp	/^void cmap_swap (cmap * map, int x, int y) {$/
+computeTotalImplications	cmap.cpp	/^int computeTotalImplications(int Fp, int Lp, struc/
+cpp_wrapper.a	Makefile	/^cpp_wrapper.a: $(C_OBJ) $(CPP_OBJ)$/
+delete_array	array.c	/^void delete_array(struct array * a) {$/
+delete_clist	clist.cpp	/^void delete_clist(clist * l) {$/
+delete_cmap	cmap.cpp	/^void delete_cmap (cmap * map) {$/
+entries	array.h	13
+file_tools.o	Makefile	/^file_tools.o: file_tools.cpp file_tools.h$/
+new_array	array.c	/^struct array * new_array(size_t total_size) {$/
+new_clist	clist.cpp	/^clist * new_clist () {$/
+new_cmap	cmap.cpp	/^cmap * new_cmap () {$/
+numImplicationsCutAt	cmap.cpp	/^int numImplicationsCutAt(int i, int Fp, int Lp, st/
+processImplicationsAt	cmap.cpp	/^void processImplicationsAt(int i, int Fp, int Lp, /
+read_implications	file_tools.cpp	/^int read_implications(const char * filename, cmap /
+serialize_to_JSON	tree_serializer.cpp	/^char * serialize_to_JSON (Tree t) {$/
+size	array.h	14
+tree_serializer.o	Makefile	/^tree_serializer.o: tree_serializer.h tree_serializ/
