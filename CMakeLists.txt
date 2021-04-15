@@ -96,8 +96,8 @@ if (NOT CMAKE_INSTALL_RPATH)
 endif ()
 
 
-set (Z3_TAG "origin/spacer" CACHE STRING "Z3 git tag to use")
-set (Z3_REPO "https://bitbucket.org/spacer/code.git" CACHE STRING "Z3 repo")
+set (Z3_TAG "z3-4.8.10" CACHE STRING "Z3 git tag to use")
+set (Z3_REPO "https://github.com/Z3Prover/z3.git" CACHE STRING "Z3 repo")
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   set (Z3_DEBUG "-d")
 else()
@@ -118,7 +118,7 @@ ExternalProject_Add(z3
   LOG_INSTALL 1
   LOG_BUILD 1)
 
-find_package(Z3 4.3.2)
+find_package(Z3 4.8.10)
 if (NOT Z3_FOUND)
   ExternalProject_Get_Property (z3 INSTALL_DIR)
   set(Z3_ROOT ${INSTALL_DIR} CACHE PATH "Forced location of Z3" FORCE)
@@ -132,8 +132,10 @@ else()
 endif()
 
 ExternalProject_Add (llvm
-  SVN_REPOSITORY http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_360/final/
+  GIT_REPOSITORY https://github.com/llvm/llvm-project.git
+  GIT_TAG llvmorg-11.1.0
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/ext/llvm
+  SOURCE_SUBDIR llvm
   INSTALL_DIR ${CMAKE_BINARY_DIR}/run
   CMAKE_ARGS
   -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
@@ -148,7 +150,7 @@ ExternalProject_Add (llvm
   LOG_BUILD 1
   LOG_INSTALL 1)
 
-find_package (LLVM 3.6.0 CONFIG NO_DEFAULT_PATH)
+find_package (LLVM 11.1.0 CONFIG NO_DEFAULT_PATH)
 if (NOT LLVM_FOUND)
   ExternalProject_Get_Property (llvm INSTALL_DIR)
   set (LLVM_ROOT ${INSTALL_DIR})
