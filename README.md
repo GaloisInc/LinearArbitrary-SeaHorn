@@ -279,4 +279,4 @@ To people who developed the SeaHorn verification framework:
 * [Temesghen Kahsai](http://www.lememta.info/)
 
 To people who developed an initial implementation of the ICE algorithm inside SeaHorn:
-* [Chenguang Zhu](http://cozy.ece.utexas.edu/~cgzhu/)
+* [Chenguang Zhu](https://chenguang-zhu.github.io)
